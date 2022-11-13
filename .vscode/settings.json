@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.sql": "sql",
+        "singlelinkedlists.h": "c",
+        "arrays.h": "c",
+        "main.h": "c"
+    }
+}

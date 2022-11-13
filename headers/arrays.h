@@ -7,8 +7,8 @@ int get_max_array(int *head, int size);
 float get_average_array(int *head, int size);
 
 /*ADVANCED*/
-bool liniar_search_array(int *head, int size, int val);
-bool binary_search_array(int *head, int first, int last, int val);
+int liniar_search_array(int *head, int size, int val);
+int binary_search_array(int *head, int first, int last, int val);
 void bubble_sort_array(int *head, int size);
 void selection_sort_array(int *head, int size);
 void insertion_sort_array(int *head, int size);

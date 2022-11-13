@@ -51,52 +51,57 @@ float get_average_array(int *head, int size)
     return (float)sum / size;
 }
 
-bool liniar_search_array(int *head, int size, int val)
+int liniar_search_array(int *head, int size, int val)
 {
-    bool res = false;
+    int index = -1;
     for (int i = 0; i < size; ++i)
     {
         if (*(head + i) == val)
         {
-            res = true;
+            index = i;
             break;
         }
     }
-    return res;
+    return index;
 }
 
-bool binary_search_array(int *head, int first, int last, int val)
+int binary_search_array(int *head, int first, int last, int val)
 {
-    bool resault = false;
+    int index = -1;
 
     if (val < head[0] || val > head[last])
     {
-        return resault;
+        return index;
     }
 
-    if (head[first] == val || head[last] == val)
+    if (head[first] == val)
     {
-        resault = true;
-        return resault;
+        index = first;
+        return index;
+    }
+    if (head[last] == val)
+    {
+        index = last;
+        return index;
     }
 
     if (first == last)
     {
-        return resault;
+        return index;
     }
 
     int mid = (first + last) / 2;
 
     if (head[mid] > val)
     {
-        resault = binary_search_array(head, first, mid - 1, val);
+        index = binary_search_array(head, first, mid - 1, val);
     }
     else
     {
-        resault = binary_search_array(head, mid + 1, last, val);
+        index = binary_search_array(head, mid + 1, last, val);
     }
 
-    return resault;
+    return index;
 }
 
 void bubble_sort_array(int *head, int size)
@@ -200,6 +205,9 @@ void insertion_sort_array(int *head, int size)
         - second one is ~ O(N*(N-k)) k:[1..N-1]
 */
 
+/*
+    to debug
+*/
 void q_insertion_sort_array(int *head, int size)
 {
     assert(head != NULL);
@@ -307,11 +315,6 @@ void merge_sort_array(int **head, int start, int end)
     merge_array(head, start, mid, end);
 }
 
-/*
-    This merge function need to be debugged
-    The problem is on the sorting
-    Consider using two sub arrays to store a local version of left to mid and mid+1 to end
-*/
 void merge_array(int **head, int start, int mid, int end)
 {
     assert(*head != NULL);
@@ -325,7 +328,7 @@ void merge_array(int **head, int start, int mid, int end)
     int right[end - mid];
 
     // copy the first half of the array into left
-    for (int i = 0; i < (mid - start +1); ++i)
+    for (int i = 0; i < (mid - start + 1); ++i)
     {
         left[i] = (*head)[i + start];
     }

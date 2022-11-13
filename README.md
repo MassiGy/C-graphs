@@ -1,6 +1,6 @@
 # C Graphs Data Structure
 
-# File Structure
+### File Structure
 
 ```Bash
     .

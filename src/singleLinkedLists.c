@@ -11,11 +11,28 @@ struct Node *create_node_list(int number)
     return item;
 }
 
-void print_list(struct Node *head)
+int get_length_list(struct Node *head)
 {
     struct Node *walker = head;
 
     assert(walker != NULL);
+
+    int counter = 0;
+
+    while (walker != NULL)
+    {
+        counter++;
+        walker = walker->next;
+    }
+    return counter;
+}
+
+void print_list(struct Node *head)
+{
+    struct Node *walker = head;
+
+    if (walker == NULL)
+        return;
 
     while (walker != NULL)
     {
@@ -37,6 +54,21 @@ struct Node *push_list(struct Node *head, int number)
 
     walker->next = create_node_list(number);
     return head;
+}
+
+struct Node *concat_list(struct Node *main, struct Node *sub)
+{
+    assert(main != NULL);
+
+    struct Node *walker = main;
+
+    while (walker->next != NULL)
+    {
+        walker = walker->next;
+    }
+
+    walker->next = sub;
+    return main;
 }
 
 struct Node *pop_list(struct Node *head)
@@ -71,14 +103,21 @@ struct Node *shift_list(struct Node *head)
 {
     assert(head != NULL);
 
+    struct Node *temp = head;
     head = head->next;
+
+    free(temp);
+    temp = NULL;
+
     return head;
 }
 
 struct Node *destroy_list(struct Node *head)
 {
-    assert(head != NULL);
+    if (head == NULL)
+        return NULL;
 
+        
     struct Node *temp;
 
     while (head != NULL)
@@ -86,8 +125,9 @@ struct Node *destroy_list(struct Node *head)
         temp = head;
         head = head->next;
         free(temp);
+        temp = NULL;
     }
-
+    head = NULL;
     return head;
 }
 
