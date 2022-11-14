@@ -572,6 +572,29 @@ list_t *find_path_proc(graph_t *graph, int origin, int dest, list_t **palready_s
     return path;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 
 graph_t *get_antisymetric_clojure(graph_t *graph)
