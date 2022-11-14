@@ -389,6 +389,7 @@ list_t *find_path(graph_t *graph, int origin, int dest)
     list_t *resault = create_node_list(origin);
 
     int path_length = get_length_list(path);
+
     int *path_as_array = listToArray(path, path_length);
 
     for (int i = 1; i < path_length; ++i)
@@ -396,10 +397,12 @@ list_t *find_path(graph_t *graph, int origin, int dest)
         int resault_length = get_length_list(resault);
         int *resault_as_array = listToArray(resault, resault_length);
 
-        if (binary_search_array(resault_as_array, 0, resault_length - 1, path_as_array[i]) == -1)
+        // only push if it is not already on the resault, liniar search way since array is not sorted
+        if (liniar_search_array(resault_as_array, resault_length, path_as_array[i]) == -1)
         {
             resault = push_list(resault, path_as_array[i]);
         }
+
         free(resault_as_array);
     }
 
@@ -432,9 +435,6 @@ list_t *find_path_proc(graph_t *graph, int origin, int dest, list_t **palready_s
 
     // transforme to array to check if dest is one of them or not
     int relation_list_length = get_length_list(current_relations);
-    int *current_relations_arr = listToArray(current_relations, relation_list_length);
-
-    int index = binary_search_array(current_relations_arr, 0, relation_list_length - 1, dest);
 
     // base case one:  dest is unreachable
     if (relation_list_length < 1)
@@ -445,14 +445,11 @@ list_t *find_path_proc(graph_t *graph, int origin, int dest, list_t **palready_s
             current_relations = NULL;
         }
 
-        if (current_relations_arr != NULL)
-        {
-            free(current_relations_arr);
-            current_relations_arr = NULL;
-        }
-
         return NULL;
     }
+
+    int *current_relations_arr = listToArray(current_relations, relation_list_length);
+    int index = liniar_search_array(current_relations_arr, relation_list_length, dest); // linair search, can be unsorted
 
     // base case two; dest is reached
     if (index != -1)
@@ -480,7 +477,8 @@ list_t *find_path_proc(graph_t *graph, int origin, int dest, list_t **palready_s
     int already_seen_verticies_list_length = get_length_list(already_seen_verticies);
     int *already_seen_verticies_arr = listToArray(already_seen_verticies, already_seen_verticies_list_length);
 
-    if (binary_search_array(already_seen_verticies_arr, 0, already_seen_verticies_list_length - 1, origin) != -1)
+    // linair search the array, since it can be unsorted in one of the recursive calls
+    if (liniar_search_array(already_seen_verticies_arr, already_seen_verticies_list_length, origin) != -1)
     {
 
         if (current_relations != NULL)
@@ -540,7 +538,8 @@ list_t *find_path_proc(graph_t *graph, int origin, int dest, list_t **palready_s
 
         path_as_array = listToArray(path, path_length);
 
-        if (binary_search_array(path_as_array, 0, path_length - 1, dest) != -1)
+        // linair search the array, since it can be unsorted.
+        if (liniar_search_array(path_as_array, path_length, dest) != -1)
         {
             if (current_relations != NULL)
             {

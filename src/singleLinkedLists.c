@@ -15,7 +15,8 @@ int get_length_list(struct Node *head)
 {
     struct Node *walker = head;
 
-    assert(walker != NULL);
+    if (walker == NULL)
+        return 0;
 
     int counter = 0;
 
@@ -117,7 +118,6 @@ struct Node *destroy_list(struct Node *head)
     if (head == NULL)
         return NULL;
 
-        
     struct Node *temp;
 
     while (head != NULL)
@@ -297,8 +297,8 @@ void bubble_sort_list(struct Node *head, int length)
 
 int *listToArray(struct Node *head, int length)
 {
-    assert(head != NULL);
-    assert(length > 0);
+    if (head == NULL || length == 0)
+        return NULL;
 
     int *res = malloc(length * sizeof(int));
 

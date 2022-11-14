@@ -37,8 +37,6 @@ int main(void)
     print_graph(graph);
     printf("------------------------\n\n");
 
-   
-
     /* all the getter for the clojures allocates space, so do not forget to free  */
 
     // graph_t * new_graph = get_reflexiv_clojure(graph);
@@ -56,15 +54,42 @@ int main(void)
 
     // destroy_graph(&new_graph);
 
+    // // // Relationship finding
+    // list_t* relations = find_relationships(graph, 1);
+    // print_list(relations);
+    // destroy_list(relations);
 
     // path finding
-    
-    list_t * path = find_path(graph,1,3);
-    print_list(path);
 
+    list_t *path = find_path(graph, 1, 3);
+    print_list(path);
     destroy_list(path);
 
+    printf("------------------------\n\n");
 
+    path = find_path(graph, 1, 1);
+    print_list(path);
+    destroy_list(path);
+
+    printf("------------------------\n\n");
+
+    path = find_path(graph, 1, 5);
+    print_list(path);
+    destroy_list(path);
+
+    printf("------------------------\n\n");
+
+    path = find_path(graph, 5, 1);
+    print_list(path);
+    destroy_list(path);
+
+    printf("------------------------\n\n");
+
+    path = find_path(graph, 7, 3);
+    print_list(path);
+    destroy_list(path);
+
+    printf("------------------------\n\n");
 
     destroy_graph(&graph);
 
